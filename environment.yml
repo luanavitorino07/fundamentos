@@ -6,4 +6,5 @@ dependencies:
   - python
   - numpy
   - pandas
-  
+  - beautifulsoup4
+  - httpx
