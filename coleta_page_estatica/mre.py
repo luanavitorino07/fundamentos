@@ -1,5 +1,6 @@
 import httpx
 from bs4 import BeautifulSoup
+from inserir_bd import inserir_db
 
 def montar_urls(url,pag_inicial,pag_final):
     lista_url_paginacao = []
@@ -55,6 +56,11 @@ def extrair_infos(link):
         print(horario)
         print(tag)
         print(paragrafos)
+
+
+        var_ambiente = 'DIR_BD'
+        nome_json = 'teste2.json'
+        inserir_db(titulo = titulo, numero_da_nota = numero_da_nota, data = data, horario = horario, tag = tag, paragrafos = paragrafos, link=link, var_ambiente = var_ambiente, nome_json = nome_json )
 
  
         print('#'*5)
