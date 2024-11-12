@@ -27,19 +27,36 @@ def extrair_infos(link):
         titulo = noticia.find('h2').text.strip()
         link = noticia.a['href']
         lista_tag_span = noticia.find('span',attrs={'class':'documentByLine'}).find_all('span',attrs={'class':'summary-view-icon'})
-        #print(lista_tag_span)
+
+        numero_da_nota = int(noticia.find('span').text.strip().split()[-1])
         data = lista_tag_span[0].text.strip()
-        #for span in lista_tag_span:
-         #   data = span
-           # horario = span[1].text.strip()
-           # tag = span[2].text.strip()
+        horario = lista_tag_span[1].text.strip()
+        tag = lista_tag_span[2].text.strip()
+
+        pegar_paragrafos = acessar_pagina(link)
+        bs = pegar_paragrafos[0]
+        http_code = pegar_paragrafos[1]  
+        lista_paragrafos = bs.find('div',attrs={'id':'content-core'}).find_all('p')
+        # paragrafos = []
+        # for paragrafo in lista_paragrafos:              
+        #     tagp = paragrafos.append(paragrafo.text.strip())
+        #compreensao de lista
+        paragrafos = [paragrafo.text.strip() for paragrafo in lista_paragrafos]
+        paragrafos.append("")
+        #utilizacao do filter para tirar strings vazias da lista
+        paragrafos = list(filter(None, paragrafos))
+            
+
+
         print(titulo)
+        print(numero_da_nota)
         print(link)
         print(data)
-        #TODO
-            #Numero da nota, horario, tag, paragrafos
-        #print(horario)
-        #print(tag)
+        print(horario)
+        print(tag)
+        print(paragrafos)
+
+ 
         print('#'*5)
 
 def main():
