@@ -7,9 +7,9 @@ from clicar_botao_01 import acessar_pagina_dinamica, webscrapping_bs
 
 
 def main():
-    link = 'https://parlacen.int/noticias'
+    link = 'https://www.sica.int/consulta/noticias_401_3_1.html'
     #'//button[text()=""]'
-    xpath = '/html/body/div[2]/div/div[1]/div/article/section/div[2]/div/div/section/div[1]/div/a[3]'
+    xpath = '/html/body/div[2]/div/div[1]/div/article/section/div[2]/div/div/section/div[1]/div/a[3]/span'
     bs = percorrer_paginas(link = link, xpath= xpath, navegador = 'chrome', tempo_espera=25)
     # extrair = extrair_infos(bs)
 

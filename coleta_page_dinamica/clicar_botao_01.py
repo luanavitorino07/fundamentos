@@ -37,33 +37,10 @@ def encontrar_botao(pagina, xpath):
 def encontrar_botao_02(pagina, xpath):
     while True:
         try:
-            # bs = webscrapping_bs(pagina)
-            # infos = extrair_infos(bs)
-            sleep(10)
-            titulos = pagina.find_elements(By.TAG_NAME, "h5")
-            botoes = pagina.find_elements(By.XPATH, "//button[@type='button']")
-
-            tags_a = pagina.find_elements(By.CLASS_NAME, "nav-link")
-            
-            for tag_h5, botao in zip(titulos, botoes):
-                titulo = tag_h5.text
-                tag_a = botao.find_element(By.TAG_NAME, "a")
-                link = tag_a.get_attribute("href")
-                
-                print(titulo)
-                print(link)
-            print("###")
-            # div_noticias = pagina.find_element(By.CLASS_NAME, "row text_center")
-            # noticias = div_noticias.find_elements(By.CLASS_NAME, "col-xl-4 col-md-6 col-sm-12 mt-4")
-
-            # print(noticias)
-            # for div in noticias:
-            #     titulo = div.find_element(By.TAG_NAME, "h5").text
-            #     tag_a = div.find_element(By.TAG_NAME, "a")
-            #     link = tag_a.get_attribute("href")
-            #     print(link, titulo)
-            
-            botao = WebDriverWait(pagina, 15).until(EC.element_to_be_clickable((By.XPATH, xpath)))
+            bs = webscrapping_bs(pagina)
+            infos = extrair_infos(bs)
+            #print(bs)
+            botao = WebDriverWait(pagina, 10).until(EC.element_to_be_clickable((By.XPATH, xpath)))
             botao.click()
             sleep(3)
         except:

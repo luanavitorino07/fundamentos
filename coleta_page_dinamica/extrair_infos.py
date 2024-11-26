@@ -1,68 +1,43 @@
+from templates import acessar_pagina
 from bs4 import BeautifulSoup
 import httpx
 from inserir_bd import inserir_db
 
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService # webdriver_manager
-from webdriver_manager.chrome import ChromeDriverManager # webdriver_manager
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-#from clicar_botao_01 import acessar_pagina_dinamica, webscrapping_bs
-
-def webscrapping_bs(pagina):
-    html_pagina = pagina.page_source
-    bs = BeautifulSoup(html_pagina, "html.parser")
-    return bs
-
-
-def acessar_pagina_dinamica(link, navegador = 'chrome', tempo_espera = 3):
-    if navegador == "chrome":
-        pagina = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-    elif navegador == "edge":
-        pagina = webdriver.Edge(EdgeChromiumDriverManager().install())
-
-
-    pagina.get(link)
-    sleep(tempo_espera)
-    return pagina
-
-def acessar_pagina(link):
-    print(link)
-    pagina = httpx.get(link)
-    bs1 = BeautifulSoup(pagina.text,'html.parser')
-   
-    return bs1
+# def acessar_pagina(link):
+#     headers = {
+#         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+#         'Accept-Language': 'en-US,en;q=0.9',
+#         'Accept-Encoding': 'gzip, deflate, br',
+#         'Connection': 'keep-alive',
+#     }
+#     print(link)
+#     pagina = httpx.get(link, headers = headers)
+#     print('acessado')
+#     bs1 = BeautifulSoup(pagina.text,'html.parser')
+#     return bs1
 
 def extrair_infos(bs):
-    noticias = bs.find_all('div', attrs={'class':'col-xl-4 col-md-6 col-sm-12 mt-4'})
+    #TODO: tratar data e autoria
+    #TODO: transformar paragrafos em lista 
+    #TODO: converter a data para dd/mm/yyyy https://gitlab.com/unesp-labri/projeto/templates/-/blob/main/locale.py?ref_type=heads
+    noticias = bs.find_all('tr', attrs={'class':'k-master-row'})
     for noticia in noticias:
-        titulo = noticia.find('h5').text.strip()
-        link = f'https://parlacen.int{noticia.a['href']}'
+        titulo = noticia.find('h4').text.strip()
+        link = f'https://www.sica.int{noticia.a['href']}'
+        data = noticia.find('h5').text.strip()
         
-        acessar = acessar_pagina_dinamica(link)
-        acessar_link = webscrapping_bs(acessar)
-        print("acessado") 
-        print(acessar_link)
-
-
-        data = acessar_link.find('app-noticia').find('small', attrs={'class': 'text-muted'})
-        # paragrafos = acessar_link.find('p', attrs={'class':'card-text info-text pt-5 mt-2 px-2-responsive'}).text.strip()
-        # print("acessado")  
+        pagina = acessar_pagina(link)
+        #paragrafos = pagina.find('p').text.strip()
         
-        #data = "NA"
-        paragrafos = "NA"
 
-        print(titulo)
-        print(link)
-        print(data)
-        #print(paragrafos)
-        var_ambiente = 'DIR_BD'
-        nome_json = 'parlacen.json'
-        inserir_db(titulo = titulo, data = data,  paragrafos = paragrafos, link=link, var_ambiente = var_ambiente, nome_json = nome_json )
-        print()
-    print("#########")
+
+        print(f'titulo: {titulo}\n')
+        print(f'link: {link}\n')
+        print(f'data: {data}\n')
+        print(f'paragrafos {paragrafos}\n')
+
+
+        print("#########")
     # return titulo, link
         
