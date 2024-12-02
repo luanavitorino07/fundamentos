@@ -3,6 +3,11 @@ from httpx import RequestError, TimeoutException  # Importa exceções específi
 from time import sleep  # Importa a biblioteca time para usar a função sleep
 from bs4 import BeautifulSoup  # Importa BeautifulSoup para analisar o HTML
 
+
+from datetime import datetime
+import locale
+
+
 def acessar_pagina(link, retry_attempts=6, timeout=10, backoff_factor=2):
     """
     Acessa uma página da web, com suporte a retries e tratamento de erros, incluindo falha de verificação SSL.
@@ -71,3 +76,37 @@ def acessar_pagina(link, retry_attempts=6, timeout=10, backoff_factor=2):
             sleep(sleep_time)
     
     return None, http_code  # Retorna None se todas as tentativas falharem
+
+
+
+def data_extenso (data, formato, lingua):
+    """
+    formata a data no padrão para inserir no banco de dados
+    Parâmetros:
+    ----------
+    data : str (tabela com os formatos de data e horário https://archive.is/wip/IeQ7I)
+        A data em formato de string que será convertida(exemplo: october 21, 2024)
+    formato : str
+        O formato no qual a data está representada. Exemplo: '%B %d, %Y'.
+    lingua : str (tabela com os formatos das linguas : https://archive.is/wip/CL0oe) 
+        O código do idioma que será utilizado para formatar a data por extenso.
+        Exemplo: 'pt_BR.utf8' para português do Brasil.
+    Retorno:
+    ----------
+    str : retorna uma string no seguinte formato "%d/%m/%Y"
+    Exemplo de uso:
+    ----------
+    data_extenso('october 21, 2024', '%d/%m/%Y', 'pt_BR.utf8')
+    '21/10/2024'
+    """
+
+    
+    locale.setlocale(locale.LC_ALL, lingua)
+
+    # Parsear la fecha
+    fecha = datetime.strptime(data, formato)
+
+    # Formatear la fecha
+    fecha_formateada = fecha.strftime('%d/%m/%Y')
+    #print(fecha_formateada)
+    return fecha_formateada

@@ -6,7 +6,7 @@ console = Console()
 
 
 
-def inserir_db(titulo = 'NA', data = 'NA', paragrafos ='NA', link='NA', var_ambiente = 'NA', nome_json= 'NA'):
+def inserir_db(titulo = 'NA', data = 'NA', autor = 'NA', paragrafos ='NA', link='NA', var_ambiente = 'NA', nome_json= 'NA'):
     dir_json = variaveis_de_ambiente(var_ambiente)
     db = TinyDB(f'{dir_json}{nome_json}', indent=4, ensure_ascii=False)
     buscar = Query()
@@ -16,6 +16,7 @@ def inserir_db(titulo = 'NA', data = 'NA', paragrafos ='NA', link='NA', var_ambi
         db.insert({
             "titulo":titulo, 
             "data":data,
+            "autor": autor,
             "paragrafos":paragrafos,
             "link":link
         })
@@ -26,6 +27,7 @@ def inserir_db(titulo = 'NA', data = 'NA', paragrafos ='NA', link='NA', var_ambi
 def main():
     titulo = 'NA'
     data = 'NA'
+    autor = 'NA'
     paragrafos ='NA'
     link='NA'
     var_ambiente = 'DIR_BD'
@@ -34,6 +36,7 @@ def main():
     inserir_db(
         titulo = titulo,  
         data = data,
+        autor = autor,
         paragrafos = paragrafos, 
         link=link, var_ambiente = var_ambiente, 
         nome_json = nome_json)
