@@ -13,3 +13,4 @@ dependencies:
   - rich
   - selenium
   - webdriver-manager
+  - waybackpy

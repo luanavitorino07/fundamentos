@@ -7,6 +7,7 @@ from inserir_bd import inserir_db
 
 def extrair_infos(bs):
     noticias = bs.find_all('tr', attrs={'class':'k-master-row'})
+
     for noticia in noticias:
         titulo = noticia.find('h4').text.strip()
         link = f'https://www.sica.int{noticia.a['href']}'
@@ -22,7 +23,7 @@ def extrair_infos(bs):
 
         print(f'titulo: {titulo}\n')
         print(f'link: {link}\n')
-        print(f'data: {data_nova}\n')
+        print(f'data: {data}\n')
         print(f'autor: {autor}\n')
         print(f'paragrafos {paragrafos}\n')
 
@@ -34,3 +35,4 @@ def extrair_infos(bs):
         inserir_db(titulo = titulo, data = data_nova, autor = autor, paragrafos = paragrafos, link=link, var_ambiente = var_ambiente, nome_json = nome_json )
 
         
+

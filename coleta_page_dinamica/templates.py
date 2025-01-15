@@ -96,7 +96,7 @@ def data_extenso (data, formato, lingua):
     str : retorna uma string no seguinte formato "%d/%m/%Y"
     Exemplo de uso:
     ----------
-    data_extenso('october 21, 2024', '%d/%m/%Y', 'pt_BR.utf8')
+    data_extenso('october 21, 2024', '%B %m, %Y', 'us_US.utf8')
     '21/10/2024'
     """
 

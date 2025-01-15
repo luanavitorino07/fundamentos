@@ -11,7 +11,6 @@ def main():
     #'//button[text()=""]'
     xpath = '/html/body/div[2]/div/div[1]/div/article/section/div[2]/div/div/section/div[1]/div/a[3]/span'
     bs = percorrer_paginas(link = link, xpath= xpath, navegador = 'chrome', tempo_espera=25)
-    # extrair = extrair_infos(bs)
 
 
 if __name__=="__main__":
